@@ -30,11 +30,14 @@ The model backend is currently based on Ollama.
 You need:
 
 - Python 3.10+
-- `uv`
 - Ollama installed
 - an Ollama model pulled locally
 
-This project has no Python runtime dependency beyond the standard library. `uv` is only used for environment management and the CLI entry point.
+Optional:
+
+- `uv` for environment management and the `mini-coding-agent` CLI entry point
+
+This project has no Python runtime dependency beyond the standard library, so you can run it directly with `python mini_coding_agent.py` if you do not want to use `uv`.
 
 &nbsp;
 ## Install Ollama
@@ -70,12 +73,11 @@ The default in this project is `qwen3.5:4b`. If you have sufficient memory, it i
 &nbsp;
 ## Project Setup
 
-Clone the repo or your fork:
+Clone the repo or your fork and change into it:
 
 ```bash
 git clone https://github.com/rasbt/mini-coding-agent.git
 cd mini-coding-agent
-uv sync
 ```
 
 If you forked it first, use your fork URL instead:
@@ -83,10 +85,9 @@ If you forked it first, use your fork URL instead:
 ```bash
 git clone https://github.com/<your-github-user>/mini-coding-agent.git
 cd mini-coding-agent
-uv sync
 ```
 
-That creates the local environment and installs the CLI entry point.
+
 
 &nbsp;
 ## Basic Usage
@@ -98,16 +99,11 @@ cd mini-coding-agent
 uv run mini-coding-agent
 ```
 
-The `mini-coding-agent` command is the CLI entry point for the project.
-Run it without a prompt to open the interactive REPL, or pass a quoted prompt
-to run a single request and exit.
-
-Examples:
+Without `uv`, run the script directly:
 
 ```bash
-uv run mini-coding-agent
-uv run mini-coding-agent "Summarize the repository layout."
-uv run mini-coding-agent --cwd /path/to/project --approval auto
+cd mini-coding-agent
+python mini_coding_agent.py
 ```
 
 By default it uses:
@@ -118,7 +114,6 @@ By default it uses:
 For a concrete usage example, see [EXAMPLE.md](EXAMPLE.md).
 
 &nbsp;
-
 ## Approval Modes
 
 Risky tools such as shell commands and file writes are gated by approval.
@@ -136,6 +131,8 @@ Example:
 uv run mini-coding-agent --approval auto
 ```
 
+
+
 &nbsp;
 ## Resume Sessions
 
@@ -151,11 +148,13 @@ Resume the latest session:
 uv run mini-coding-agent --resume latest
 ```
 
+
 Resume a specific session:
 
 ```bash
 uv run mini-coding-agent --resume 20260401-144025-2dd0aa
 ```
+
 
 &nbsp;
 ## Interactive Commands
@@ -181,6 +180,12 @@ being sent to the model as a normal task.
 
 ```bash
 uv run mini-coding-agent --help
+```
+
+Without `uv`:
+
+```bash
+python mini_coding_agent.py --help
 ```
 
 CLI flags are passed before the agent starts. Use them to choose the workspace,
